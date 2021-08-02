@@ -1,0 +1,107 @@
+﻿@using SearchPrototype.Models
+@model Tuple<ViewModel, tblCompany>
+@{
+    ViewBag.Title = "Search";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "companyInfo"
+    };
+}
+
+<h2>Search</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="input-group col-md-8">
+            @using (Ajax.BeginForm("OnSubmitText", "Home", ajaxOptions))
+            {
+                <input class="form-control" placeholder="company name" type="text" id="CNameAutoComplete" name="companyName" /> @*Autocomplete text box*@
+                <div class="input-group-btn col-md-4">
+                    <input class="btn btn-default" type="submit" id="SubmitButton" value="Display Company Details" /> 
+                </div>
+            }
+            </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <label for="ddSpeciality">Specialities</label>
+        <select class="form-control" id="ddSpeciality">
+            <option selected value="all">All</option>
+            @foreach (var item in Model.Item1.Specialities)
+            {
+                <option value="@item.intID">@item.strName</option>
+            }
+        </select>
+    </div>
+    <div class="row">
+        <label for="ddCategory">Categories</label>
+        <select class="form-control" id="ddCategory">
+            <option selected value="all">All</option>
+            @foreach (var item in Model.Item1.Categories)
+            {
+                <option value="@item.intID">@item.strName</option>
+            }
+        </select>
+    </div>
+    <div class="row">
+        <label for="ddLocation">Locations</label>
+        <select class="form-control" id="ddLocation">
+            <option selected value="all">All</option>
+            @foreach (var item in Model.Item1.Locations)
+            {
+                <option value="@item.intID">@item.strName</option>
+            }
+        </select>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        var dropDownSpecialityVal = $("#ddSpeciality").val();
+        var dropDownCategoryVal = $("#ddCategory").val();
+        var dropDownLocationVal = $("#ddLocation").val();
+        $("#ddSpeciality").change(function () {
+            dropDownSpecialityVal = $("#ddSpeciality").val();
+        });
+        $("#ddCategory").change(function () {
+            dropDownCategoryVal = $("#ddCategory").val();
+        });
+        $("#ddLocation").change(function () {
+            dropDownLocationVal = $("#ddLocation").val();
+        });
+
+        /*Ajax jquery autocomplete function */
+        $("#CNameAutoComplete").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Home/GetCompapanyNames",
+                    data: JSON.stringify({
+                        prefixText: request.term, speciality: dropDownSpecialityVal, category: dropDownCategoryVal, location: dropDownLocationVal
+                    }),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.strName, value: item.strName
+                            }
+                        }))
+                    },
+                    error: function (data) {
+                        alert('something went wrong at autocomplete');
+                    }
+                });
+            },
+            minLength: 1
+        });
+    });
+</script>
+@* Partial view area *@
+<div id="companyInfo">
+    @Html.Partial("~/Views/Shared/_CompanyDetails.cshtml", Model.Item2)
+</div>

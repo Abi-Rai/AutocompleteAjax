@@ -1,0 +1,41 @@
+﻿@model SearchPrototype.Models.tblCompany
+
+<hr />
+<h3>Company Details</h3>
+<h4><u>Partially loaded page</u></h4>
+<hr />
+@{if(ViewBag.Message != null)
+
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                alert("@ViewBag.Message");
+            });
+        </script>
+    }
+}
+
+<b>@Html.DisplayNameFor(m => Model.strName)</b>: @Html.DisplayFor(m => Model.strName)
+<br />
+<b>@Html.DisplayNameFor(m => Model.strWebsite)</b>: @Html.DisplayFor(m => Model.strWebsite)
+<br />
+<b>@Html.DisplayNameFor(m => Model.strSize)</b>: @Html.DisplayFor(m => Model.strSize)
+<br />
+<b>@Html.DisplayNameFor(m => Model.strLinkedInUrl)</b>: @Html.DisplayFor(m => Model.strLinkedInUrl)
+<br />
+<b>@Html.DisplayNameFor(m => Model.intLinkedInID)</b>: @Html.DisplayFor(m => Model.intLinkedInID)
+@if(ViewBag.Message == null){ 
+<div><b>Specialities:</b> @string.Join(", ", Model.tblSpecialitiesToCompanies.Select(s => s.tblSpeciality.strName))</div>
+<div><b>Category:</b> @string.Join(", ", Model.tblCategory.strName)</div>
+<div><b>Locations:</b> @string.Join(", ", Model.tblLocationsToCompanies.Select(l => l.tblLocation.strName))</div>
+}
+<b>@Html.DisplayNameFor(m => Model.strContactPhone)</b>: @Html.DisplayFor(m => Model.strContactPhone)
+<br />
+<b>@Html.DisplayNameFor(m => Model.strContactEmail)</b>: @Html.DisplayFor(m => Model.strContactEmail)
+<br />
+<b>@Html.DisplayNameFor(m => Model.strTwitterID)</b>: @Html.DisplayFor(m => Model.strTwitterID)
+<br />
+
+
+
+
