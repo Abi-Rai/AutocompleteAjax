@@ -14,11 +14,6 @@ namespace SearchPrototype.Controllers
         {
             this.dbContext = new RecruitmentDbEntities();
         }
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         
         public ActionResult Search()
         {

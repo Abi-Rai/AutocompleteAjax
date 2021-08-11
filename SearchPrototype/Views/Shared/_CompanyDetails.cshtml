@@ -3,6 +3,7 @@
 <hr />
 <h3>Company Details</h3>
 <h4><u>Partially loaded page</u></h4>
+<h5>Time Loaded: @DateTime.Now.ToLongTimeString()</h5>
 <hr />
 @{if(ViewBag.Message != null)
 
@@ -32,8 +33,6 @@
 <b>@Html.DisplayNameFor(m => Model.strContactPhone)</b>: @Html.DisplayFor(m => Model.strContactPhone)
 <br />
 <b>@Html.DisplayNameFor(m => Model.strContactEmail)</b>: @Html.DisplayFor(m => Model.strContactEmail)
-<br />
-<b>@Html.DisplayNameFor(m => Model.strTwitterID)</b>: @Html.DisplayFor(m => Model.strTwitterID)
 <br />
 
 

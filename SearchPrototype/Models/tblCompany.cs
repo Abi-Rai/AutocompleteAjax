@@ -11,7 +11,8 @@ namespace SearchPrototype.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class tblCompany
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,16 +21,24 @@ namespace SearchPrototype.Models
             this.tblLocationsToCompanies = new HashSet<tblLocationsToCompany>();
             this.tblSpecialitiesToCompanies = new HashSet<tblSpecialitiesToCompany>();
         }
-    
+        
         public int intID { get; set; }
+        [DisplayName("Company Name")]
         public string strName { get; set; }
+        [DisplayName("Company Website")]
         public string strWebsite { get; set; }
+        [DisplayName("Company Size")]
         public string strSize { get; set; }
+        [DisplayName("LinkedIn Url")]
         public string strLinkedInUrl { get; set; }
+        [DisplayName("LinkedIn ID")]
         public int intLinkedInID { get; set; }
         public int intCategoryID { get; set; }
+        [DisplayName("Phone Number")]
         public string strContactPhone { get; set; }
+        [DisplayName("Email")]
         public string strContactEmail { get; set; }
+        [DisplayName("TwitterID")]
         public string strTwitterID { get; set; }
     
         public virtual tblCategory tblCategory { get; set; }
