@@ -1,4 +1,4 @@
 # AutocompleteAjax
 
-JQeury Ajax autocomplete with filter implementation using .Net MVC application
+JQeury Ajax autocomplete with multiple filters implementation using .Net MVC application
 
